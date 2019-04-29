@@ -1,7 +1,10 @@
 package com.eshore.activiti6.resource;
 
+import com.eshore.activiti6.service.ActivitiService;
 import org.activiti.app.model.common.ResultListDataRepresentation;
 import org.activiti.app.rest.runtime.AbstractAppDefinitionsResource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping
 public class IdmResource extends AbstractAppDefinitionsResource {
+
+    @Autowired
+    private ActivitiService activitiService;
 
     @RequestMapping("/app/rest/authenticate")
     public String authenticate() {
@@ -31,4 +37,10 @@ public class IdmResource extends AbstractAppDefinitionsResource {
     public ResultListDataRepresentation getAppDefinitions() {
         return super.getAppDefinitions();
     }
+
+    @GetMapping("/test")
+    public void test(){
+        activitiService.test();
+    }
+
 }
