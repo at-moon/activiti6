@@ -20,8 +20,8 @@ import java.util.Properties;
 
 @ComponentScan
 @Configuration
-@EnableJpaRepositories({ "org.activiti.app.repository" })
-@EnableTransactionManagement
+//@EnableJpaRepositories({ "org.activiti.app.repository" })
+//@EnableTransactionManagement
 public class DataSourceConfig {
 
     @Autowired
@@ -61,7 +61,7 @@ public class DataSourceConfig {
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
         jpaVendorAdapter.setShowSql(environment.getProperty("hibernate.show_sql", Boolean.class, false));
-        jpaVendorAdapter.setDatabasePlatform(environment.getProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect"));
+        jpaVendorAdapter.setDatabasePlatform(environment.getProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect"));
         return jpaVendorAdapter;
     }
 }

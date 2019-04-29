@@ -8,7 +8,13 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 @SpringBootApplication(exclude = {
 		org.activiti.spring.boot.SecurityAutoConfiguration.class,
 		LiquibaseAutoConfiguration.class,
-		HibernateJpaAutoConfiguration.class
+		HibernateJpaAutoConfiguration.class,
+		org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class,
+		org.springframework.boot.autoconfigure.security.servlet.SecurityRequestMatcherProviderAutoConfiguration.class,
+		org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration.class,
+		org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration.class,
+		org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration.class,
+		org.springframework.boot.autoconfigure.security.reactive.ReactiveUserDetailsServiceAutoConfiguration.class
 })
 public class Activiti6Application {
 
