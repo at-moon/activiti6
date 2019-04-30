@@ -1,10 +1,16 @@
 package com.eshore.activiti6.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
 
+import javax.persistence.Entity;
+
 @Data
-public class FcsActReProcess {
+@Entity
+public class FcsActReProcess implements Serializable {
+
+	private static final long serialVersionUID = -8744474259565329486L;
 
 	private String id;
 
