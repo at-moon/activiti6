@@ -1,10 +1,11 @@
 package com.eshore.activiti6.service.impl;
 
+import com.eshore.activiti6.entity.FcsActReFlow;
+import com.eshore.activiti6.entity.FcsActReTask;
 import com.eshore.activiti6.repository.FcsActReProcessRepository;
 import com.eshore.activiti6.service.ActivitiService;
 import com.eshore.activiti6.service.FcsActReProcessService;
-import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.bpmn.model.FlowElement;
+import org.activiti.bpmn.model.*;
 import org.activiti.bpmn.model.Process;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -35,7 +36,7 @@ public class ActivitiServiceImpl implements ActivitiService {
     @Override
     public void test() {
 //        BpmnModel bpmnModel = repositoryService.getBpmnModel("myProcess_1:1:2504");
-        BpmnModel bpmnModel = repositoryService.getBpmnModel("process-02:1:5004");
+        BpmnModel bpmnModel = repositoryService.getBpmnModel("test_01:1:2504");
         Process process = bpmnModel.getMainProcess();
         ProcessDefinition definition = getProcessDefinitionByKey(process.getId());
         // 保存流程信息
@@ -43,6 +44,26 @@ public class ActivitiServiceImpl implements ActivitiService {
         Collection<FlowElement> flowElements = process.getFlowElements();
         for(FlowElement e : flowElements) {
             System.out.println("flowelement id:" + e.getId() + "  name:" + e.getName() + "   class:" + e.getClass().toString());
+            if (e instanceof UserTask) {
+                UserTask userTask = (UserTask)e;
+                FcsActReTask fcsActReTask = new FcsActReTask();
+                fcsActReTask.setId(userTask.getId());
+                fcsActReTask.setName(userTask.getName());
+                fcsActReTask.setProcessId(definition.getId());
+                fcsActReTask.setId(userTask.getExtensionId());
+            }
+            if (e instanceof SequenceFlow) {
+                SequenceFlow sequenceFlow = (SequenceFlow)e;
+                FcsActReFlow fcsActReFlow = new FcsActReFlow();
+                fcsActReFlow.setId(sequenceFlow.getId());
+                fcsActReFlow.setName(sequenceFlow.getName());
+                fcsActReFlow.setProcessId(definition.getId());
+                fcsActReFlow.setSourceTaskId(sequenceFlow.getSourceRef());
+                fcsActReFlow.setTargetTaskId(sequenceFlow.getTargetRef());
+                fcsActReFlow.setRule(sequenceFlow.getConditionExpression());
+            }
+
+
         }
     }
 
